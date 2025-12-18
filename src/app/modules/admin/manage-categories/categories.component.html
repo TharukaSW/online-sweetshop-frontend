@@ -1,0 +1,42 @@
+<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8">
+	<!-- Add Category Section -->
+	<section class="mb-10" [formGroup]="categoryForm" (ngSubmit)="onAddCategory()">
+		<h2 class="text-2xl font-bold mb-4 text-gray-800">Add Category</h2>
+		<form  class="space-y-4">
+			<div class="flex flex-col md:flex-row md:items-center md:space-x-4">
+				<label for="name" class="w-32 font-medium text-gray-700">Name:</label>
+				<input type="text" id="name" name="name" formControlName="name" required class="flex-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+			</div>
+			<div class="flex flex-col md:flex-row md:items-center md:space-x-4">
+				<label for="description" class="w-32 font-medium text-gray-700">Description:</label>
+				<input type="text" id="description" name="description" formControlName="description" required class="flex-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+			</div>
+			<button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50">Add Category</button>
+		</form>
+	</section>
+
+	<!-- Category List Section -->
+	<section>
+		<h2 class="text-2xl font-bold mb-4 text-gray-800">Category List</h2>
+		<div class="overflow-x-auto">
+			<table class="min-w-full bg-white border border-gray-200 rounded-lg">
+				<thead>
+					<tr class="bg-gray-100 text-gray-700">
+						<th class="py-2 px-4 border-b">Name</th>
+						<th class="py-2 px-4 border-b">Description</th>
+						<th class="py-2 px-4 border-b">Created At</th>
+						<th class="py-2 px-4 border-b">Updated At</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let category of categories | async" class="hover:bg-gray-50">
+						<td class="py-2 px-4 border-b">{{ category.name }}</td>
+						<td class="py-2 px-4 border-b">{{ category.description }}</td>
+						<td class="py-2 px-4 border-b">{{ category.createdAt | date:'medium' }}</td>
+						<td class="py-2 px-4 border-b">{{ category.updatedAt | date:'medium' }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+</div>

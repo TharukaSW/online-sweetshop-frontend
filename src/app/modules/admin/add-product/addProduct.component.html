@@ -1,0 +1,84 @@
+<div class="max-w-2xl mx-auto p-8 bg-white rounded-lg shadow-md mt-8">
+	<h2 class="text-2xl font-bold mb-6 text-gray-800">Add / Edit Product</h2>
+	<form class="space-y-5" [formGroup]="productForm" (ngSubmit)="onSaveProduct()">
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="id">Product ID</label>
+			<input class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="id" name="id" type="text" placeholder="Enter product ID" formControlName="id" />
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="name">Product Name</label>
+			<input class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="name" name="name" type="text" placeholder="Enter product name" formControlName="name" />
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="price">Price</label>
+			<input class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="price" name="price" type="number" placeholder="Enter price" formControlName="price" />
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="stockCount">Stock Count</label>
+			<input class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="stockCount" name="stockCount" type="number" placeholder="Enter stock count" formControlName="stockCount" />
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="image">Image URL</label>
+			<input class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="image" name="image" type="text" placeholder="/image.jpg" formControlName="image" />
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="shortDescription">Short Description</label>
+			<input class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="shortDescription" name="shortDescription" type="text" placeholder="Short description" formControlName="shortDescription" />
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="description">Description</label>
+			<textarea class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="description" name="description" rows="3" placeholder="Full description" formControlName="description"></textarea>
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="category">Category</label>
+			<select class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="category" name="category" formControlName="category">
+			<option value="" disabled selected>Select category</option>
+			<option *ngFor="let cat of categories | async" [value]="cat.name">{{ cat.name }}</option>
+			</select>
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="demand">Demand</label>
+			<select class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="demand" name="demand" formControlName="demand">
+				<option value="high">High</option>
+				<option value="medium">Medium</option>
+				<option value="low">Low</option>
+			</select>
+		</div>
+		<div class="flex items-center space-x-4">
+			<label class="flex items-center">
+				<input type="checkbox" name="featured" class="mr-2" formControlName="featured"/> Featured
+			</label>
+			<label class="flex items-center">
+				<input type="checkbox" name="isNewProduct" class="mr-2" formControlName="isNewProduct" /> New Product
+			</label>
+			<label class="flex items-center">
+				<input type="checkbox" name="isLimited" class="mr-2" formControlName="isLimited" /> Limited
+			</label>
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="ingredients">Ingredients</label>
+			<input class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="ingredients" name="ingredients" type="text" placeholder="Comma separated ingredients" formControlName="ingredients" />
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="discount">Discount (%)</label>
+			<input class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="discount" name="discount" type="number" placeholder="Discount percent" formControlName="discount" />
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="season">Season</label>
+			<input class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="season" name="season" type="text" placeholder="Season" formControlName="season" />
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="rating">Rating</label>
+			<input class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="rating" name="rating" type="number" min="1" max="5" placeholder="Rating (1-5)" formControlName="rating" />
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="reviews">Reviews</label>
+			<input class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="reviews" name="reviews" type="number" placeholder="Number of reviews" formControlName="reviews" />
+		</div>
+		<div>
+			<label class="block font-medium text-gray-700 mb-1" for="expiryDate">Expiry Date</label>
+			<input class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" id="expiryDate" name="expiryDate" type="date" formControlName="expiryDate" />
+		</div>
+		<button type="submit" class="w-full bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Save Product</button>
+	</form>
+</div>
