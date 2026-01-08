@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MasterService } from '../../../core/services/master-service';
 import { Category } from '../../../shared/model/category.model';
@@ -17,7 +17,9 @@ export class AddProductComponent implements OnInit, OnDestroy {
   categories!: Observable<Category[]>;
   subscribe: Subscription[] = [];
 
-  constructor(private masterService: MasterService) {
+  private masterService = inject(MasterService);
+
+  constructor() {
     this.categories = this.masterService.getAllCategories();
   }
 

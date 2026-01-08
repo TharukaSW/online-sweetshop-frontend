@@ -1,23 +1,28 @@
 <div class="max-w-xs rounded overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
-  <img class="w-full h-48 object-cover" src="{{product.image}}" alt="Product Image" />
+  <img class="w-full h-48 object-cover" [src]="product.image" [alt]="product.name" />
   <div class="px-6 py-4">
     <div class="font-bold text-xl mb-2 text-gray-900">{{ product.name }}</div>
-    <p class="text-gray-700 text-base mb-2 truncate">{{ product.description }}</p>
+    <p class="text-gray-700 text-base mb-2 line-clamp-2">{{ product.shortDescription || product.description }}</p>
     <div class="flex items-center justify-between mt-2">
-      <span class="text-lg font-semibold text-blue-600">Rs.{{ product.price }}</span>
-      <span class="ml-2 text-sm text-green-600 bg-green-100 px-2 py-1 rounded">{{ product.discount }}</span>
+      <div class="flex items-center gap-2">
+        <span *ngIf="product.discount > 0" class="text-sm text-gray-500 line-through">Rs.{{ product.price }}</span>
+        <span class="text-lg font-semibold text-blue-600">Rs.{{ product.discountedPrice || product.price }}</span>
+      </div>
+      <span *ngIf="product.discount > 0" class="text-sm text-green-600 bg-green-100 px-2 py-1 rounded">{{ product.discount }}% OFF</span>
     </div>
-    <div class="flex items-center mt-2">
-      <span class="text-xs text-gray-500">{{ product.stockCount }}</span>
-      <span class="ml-2 text-xs text-yellow-600 font-semibold">{{ product.featured }}</span>
+    <div class="flex items-center justify-between mt-2">
+      <span class="text-xs text-gray-500">Stock: {{ product.stockCount }}</span>
+      <span *ngIf="product.featured" class="text-xs text-yellow-600 font-semibold bg-yellow-100 px-2 py-1 rounded">Featured</span>
     </div>
-    <div class="flex items-center mt-2">
-      <span class="text-xs text-gray-500">{{ product.category }}</span>
+    <div class="mt-2">
+      <span class="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded">{{ product.category }}</span>
     </div>
   </div>
-  <div class="px-6 pt-2 pb-4 flex justify-between items-center">
-    <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition">View</button>
-    <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition">Add to Cart</button>
+  <div class="px-6 pt-2 pb-4 flex justify-between items-center gap-2">
+    <a [routerLink]="['/view-product', product._id]" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition text-center text-sm">View</a>
+    <button (click)="onAddToCart()" [disabled]="product.stockCount <= 0" class="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold py-2 px-4 rounded transition text-sm">
+      {{ product.stockCount > 0 ? 'Add to Cart' : 'Out of Stock' }}
+    </button>
   </div>
 </div>
 

@@ -1,0 +1,145 @@
+<div class="min-h-screen bg-linear-to-br from-green-50 via-white to-yellow-50 flex items-center justify-center px-4 py-12">
+	<div class="max-w-md w-full">
+		<!-- Logo/Header -->
+		<div class="text-center mb-8">
+			<div class="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-linear-to-br from-green-600 to-green-700 text-white shadow-lg mb-4">
+				<span class="text-2xl font-bold">OS</span>
+			</div>
+			<h1 class="text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
+			<p class="text-gray-600">Join our organic sweet shop</p>
+		</div>
+
+		<!-- Register Form -->
+		<div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+			<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+				<!-- Error Message -->
+				<div *ngIf="errorMessage" class="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+					<p class="text-sm text-red-600">{{ errorMessage }}</p>
+				</div>
+
+				<!-- First Name Field -->
+				<div class="mb-4">
+					<label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+					<input
+						type="text"
+						id="firstName"
+						formControlName="firstName"
+						class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+						placeholder="Enter your first name"
+						[class.border-red-500]="firstName?.invalid && firstName?.touched"
+					/>
+					<div *ngIf="firstName?.invalid && firstName?.touched" class="mt-1">
+						<p *ngIf="firstName?.errors?.['required']" class="text-xs text-red-600">First name is required</p>
+						<p *ngIf="firstName?.errors?.['minlength']" class="text-xs text-red-600">First name must be at least 2 characters</p>
+					</div>
+				</div>
+
+				<!-- Last Name Field -->
+				<div class="mb-4">
+					<label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+					<input
+						type="text"
+						id="lastName"
+						formControlName="lastName"
+						class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+						placeholder="Enter your last name"
+						[class.border-red-500]="lastName?.invalid && lastName?.touched"
+					/>
+					<div *ngIf="lastName?.invalid && lastName?.touched" class="mt-1">
+						<p *ngIf="lastName?.errors?.['required']" class="text-xs text-red-600">Last name is required</p>
+						<p *ngIf="lastName?.errors?.['minlength']" class="text-xs text-red-600">Last name must be at least 2 characters</p>
+					</div>
+				</div>
+
+				<!-- Email Field -->
+				<div class="mb-4">
+					<label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+					<input
+						type="email"
+						id="email"
+						formControlName="email"
+						class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+						placeholder="Enter your email"
+						[class.border-red-500]="email?.invalid && email?.touched"
+					/>
+					<div *ngIf="email?.invalid && email?.touched" class="mt-1">
+						<p *ngIf="email?.errors?.['required']" class="text-xs text-red-600">Email is required</p>
+						<p *ngIf="email?.errors?.['email']" class="text-xs text-red-600">Please enter a valid email</p>
+					</div>
+				</div>
+
+				<!-- Password Field -->
+				<div class="mb-4">
+					<label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+					<input
+						type="password"
+						id="password"
+						formControlName="password"
+						class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+						placeholder="Enter your password"
+						[class.border-red-500]="password?.invalid && password?.touched"
+					/>
+					<div *ngIf="password?.invalid && password?.touched" class="mt-1">
+						<p *ngIf="password?.errors?.['required']" class="text-xs text-red-600">Password is required</p>
+						<p *ngIf="password?.errors?.['minlength']" class="text-xs text-red-600">Password must be at least 8 characters</p>
+					</div>
+				</div>
+
+				<!-- Confirm Password Field -->
+				<div class="mb-6">
+					<label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+					<input
+						type="password"
+						id="confirmPassword"
+						formControlName="confirmPassword"
+						class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+						placeholder="Confirm your password"
+						[class.border-red-500]="confirmPassword?.invalid && confirmPassword?.touched"
+					/>
+					<div *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="mt-1">
+						<p *ngIf="confirmPassword?.errors?.['required']" class="text-xs text-red-600">Please confirm your password</p>
+						<p *ngIf="confirmPassword?.errors?.['passwordMismatch']" class="text-xs text-red-600">Passwords do not match</p>
+					</div>
+				</div>
+
+				<!-- Submit Button -->
+				<button
+					type="submit"
+					[disabled]="isLoading"
+					class="w-full bg-linear-to-r from-green-600 to-green-700 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+				>
+					<span *ngIf="!isLoading">Create Account</span>
+					<span *ngIf="isLoading" class="flex items-center justify-center">
+						<svg class="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
+							<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+							<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+						</svg>
+						Creating account...
+					</span>
+				</button>
+			</form>
+
+			<!-- Divider -->
+			<div class="my-6 flex items-center">
+				<div class="flex-1 border-t border-gray-300"></div>
+				<span class="px-4 text-sm text-gray-500">or</span>
+				<div class="flex-1 border-t border-gray-300"></div>
+			</div>
+
+			<!-- Login Link -->
+			<div class="text-center">
+				<p class="text-sm text-gray-600">
+					Already have an account?
+					<a routerLink="/login" class="text-green-600 hover:text-green-700 font-semibold ml-1">Sign in</a>
+				</p>
+			</div>
+		</div>
+
+		<!-- Back to Home -->
+		<div class="text-center mt-6">
+			<a routerLink="/" class="text-sm text-gray-600 hover:text-gray-900">
+				← Back to Home
+			</a>
+		</div>
+	</div>
+</div>

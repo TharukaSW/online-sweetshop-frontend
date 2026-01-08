@@ -3,7 +3,7 @@ import { NavbarComponent } from '../../../shared/components/navbar/navbar.compon
 
 @Component({
   selector: 'app-home.component',
-  imports: [NavbarComponent],
+  imports: [],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

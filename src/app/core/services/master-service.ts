@@ -38,6 +38,14 @@ export class MasterService {
     );
   }
 
+  getProductById(mongoId: string) {
+    return this.http.get<Product>(`${this.baseUrl}/products/${mongoId}`).pipe(
+      map((response: Product) => {
+        return response;
+      })
+    )
+  }
+
 	updateProduct(mongoId: string, productData: Partial<Product>) {
 		return this.http.put(`${this.baseUrl}/products/${mongoId}`, productData);
 	}
